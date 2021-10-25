@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>loginCreated</title>
+    <link rel="stylesheet" href="/css/styling.css" type="text/css">
+</head>
+<body>
+<p><b>Congratulations, <span th:text = "${user.login}"></span>! You have successfully created a user!</b></p>
+<p><b>Please, enter your credentials and press on "Login" to proceed</b></p>
+
+<div class="form-middle">
+    <form method = "POST" action = "/loginUser">
+        <p style="text-align: center"><b>Please login here:</b></p>
+        <b>Login :</b> <input type = text name = login>
+        <b>Password :</b> <input type = password name = password>
+             <div class="button-wrapper">
+            <button class="button1" type="submit">Login</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/styling.css" type="text/css">
+    <title>Index</title>
+
+</head>
+<body>
+
+<h1> Wellcome to the Main page</h1>
+
+
+<div class="form-middle">
+<form method = "POST" action = "/loginUser">
+    <p style="text-align: center"><b>Please login here:</b></p>
+    <b>Login :</b> <input style="margin-left: 29px" type = text name = login>
+    <b>Password :</b> <input type = password name = password>
+    <div class="button-wrapper">
+    <button class="button1" type="submit">Login</button>
+    </div>
+    <div class="button-wrapper">
+            <button class="button1" onclick="location.href='/registerUser'" type="button">Signup</button>
+    </div>
+</form>
+</div>
+
+
+</div2>
+<div class="footer">
+    <p>Number of visitors: <span th:text="${counter}"/>
+    </p>
+</div>
+</body>
+</html>
+
+
+<!--
+<div2 class="div2">
+    <div class="form-middle">
+        <form method = "POST" action = "/createUser">
+            <p style="text-align:center">Please sign up here:</p>
+            Login : <input type = text name = login>
+            Username or password entered wrong</span><p>&ndash;&gt;
+            Password : <input type = password name = password>
+            <div class="button-wrapper">
+                <button class="button1" type="submit">Signup</button>
+            </div>
+        </form>
+    </div>
+</div2>-->

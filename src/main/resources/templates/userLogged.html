@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/styling.css" type="text/css">
+    <title>LoggedIn</title>
+</head>
+<body>
+<p><b> Congratulations, <span th:text = "${user.login}"/>! You have successfully logged in</b></p>
+
+<p style="margin-top:30px;text-align: left"><b>What do you wish to do? You have following options:</b></p>
+<ul>
+    <li><a href="/guessNumber">1. Play "Guess number game"</a></li>
+    <li><a onclick="location.href='/showGrades'">2. Show you grades, if you are in our student database</a></li>???
+    <li><a href="/3">3.</a></li>
+</ul>
+</body>
+</html>
