@@ -1,7 +1,4 @@
-package com.example.loginopgave.repository;
-
-import com.example.loginopgave.models.User;
-import org.apache.tomcat.util.bcel.Const;
+package com.example.loginopgave.repositories;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,17 +1,15 @@
 package com.example.loginopgave.controllers;
 
-import com.example.loginopgave.models.User;
-import com.example.loginopgave.repository.DBManager;
-import com.example.loginopgave.services.GameService;
-import com.example.loginopgave.services.UserService;
+import com.example.loginopgave.domain.models.User;
+import com.example.loginopgave.repositories.DBManager;
+import com.example.loginopgave.domain.services.UserService;
+import com.example.loginopgave.repositories.DataMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ import java.util.List;
 @Controller
 public class LoginController {
 
-private int counter = 0;
+  private int counter = 0;
 
 
   @GetMapping("/check")
@@ -43,15 +41,16 @@ private int counter = 0;
 
 
   @GetMapping("/registerUser")
-  public String registerUser(){
+  public String registerUser() {
     return "registerUser";
   }
 
   @PostMapping("/registerVerify")
-  public String registerVerify(User userEntered){
+  public String registerVerify(User userEntered) {
     UserService us = new UserService();
+    DataMapper dm = new DataMapper();
     try {
-      if (us.checkIfExists(userEntered)){
+      if (dm.checkIfExistsInDB(userEntered)) {
         return "userCreated";
       }
 
@@ -67,74 +66,56 @@ private int counter = 0;
       return "redirect:/";
 
     } else {
+      DataMapper dataMapper = new DataMapper();
       UserService service = new UserService();
       User nyUser = new User(login, password);
       try {
-        if (service.checkIfExists(nyUser)){
+        if (dataMapper.checkIfExistsInDB(nyUser)) {
           return "registerUser";
         }
       } catch (SQLException e) {
         e.printStackTrace();
       }
       model.addAttribute("user", nyUser);
-      service.saveUserToDB(nyUser);
+      dataMapper.saveUserToDB(nyUser);
       return "userCreated";
     }
   }
 
 
-  @PostMapping("/loginUser")
-  public String loginUser(@RequestParam String login, @RequestParam String password, Model model) {
-      UserService service = new UserService();
-      User userEntered = new User(login,password);
-      model.addAttribute("user", userEntered);
+  @PostMapping("/loginUser")// virker den???
+  public String loginUser(@RequestParam String login, @RequestParam String password, Model model,
+                          WebRequest request, HttpSession session){
+    UserService service = new UserService();
+    User user = new User(login,password);
+    DataMapper dm = new DataMapper();
+    model.addAttribute("user", user);
     boolean isValid = false;
     try {
-      isValid = service.loginUser(userEntered);
+       isValid = service.loginUser(user); //????
+     /* isValid = service.loginUser(user);*/
     } catch (SQLException e) {
       e.printStackTrace();
     }
     if (isValid){
-               return "userLogged";
+        if(session.getAttribute("user")==null){
+    request.setAttribute("user", user, WebRequest.SCOPE_SESSION); // flyttes til HTML Controller?
+    return"userLogged";
+        }
       }
-               return "redirect:/";
-    }
-
-    @GetMapping("/guessNumber")
-    public String sendToGuessNumber(){
-    return "guessNumber";
+    return "redirect:/";
     }
 
 
-  @PostMapping("/playGame")
-  public String loginUser(@RequestParam int humanNumber, Model model){
-    GameService gameService = new GameService();
-    gameService.chooseNumberComputer();
-    model.addAttribute("gameService", gameService);
-         if (gameService.getPcNumber() == humanNumber){
-      return "gameResultTrue";
-    }
-    return "gameResultFalse";
-   }
 
-   /*@PostMapping("/showGrades")
-     public String showGrades(@RequestParam String login, @RequestParam String password){
-       UserService service = new UserService();
-       User userEntered = new User(login,password);
-       service.getIfStudent(userEntered);
-       boolean isStudent = service.checkIfStudent(userEntered);
-       if(isStudent){
-         return "userStudent";
-       }
-       return "userNotStudent";
-     }*/
+ /* @ExceptionHandler(Exception.class)
+  public String exeptionHandler(Model model, Exception exception){
+   model.addAttribute("message", exception.getMessage());
+     return "userLogged";
+    }*/
 
-  @GetMapping("/showGrades")
-  public String showGrades(){
-
-    return "showGrades";
   }
-}
+
 
 
 

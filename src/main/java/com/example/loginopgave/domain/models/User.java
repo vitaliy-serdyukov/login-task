@@ -1,4 +1,4 @@
-package com.example.loginopgave.models;
+package com.example.loginopgave.domain.models;
 
 public class User {
 

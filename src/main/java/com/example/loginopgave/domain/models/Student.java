@@ -1,3 +1,4 @@
+/*
 package com.example.loginopgave.models;
 
 public class Student {
@@ -133,3 +134,4 @@ public class Student {
         '}';
   }
 }
+*/

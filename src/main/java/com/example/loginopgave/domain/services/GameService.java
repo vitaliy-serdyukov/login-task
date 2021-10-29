@@ -1,4 +1,4 @@
-package com.example.loginopgave.services;
+package com.example.loginopgave.domain.services;
 
 import java.util.Random;
 
