@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/styling.css" type="text/css">
@@ -9,13 +10,18 @@
 <body>
 <p><b> Congratulations, <span th:text = "${user.login}"/>! You have successfully logged in</b></p>
 
+<div class="button-wrapper">
+    <button class="button1" onclick="location.href='/logout'" type="button">Logout</button>
+</div>
+
 <p style="margin-top:30px;text-align: left"><b>What do you wish to do? You have following options:</b></p>
 <ul>
-    <li><a href="/guessNumber">1. Play "Guess number game"</a></li>
+    <li><a href="game/guessNumber">1. Play "Guess number game"</a></li>
     <li><a onclick="location.href='/showGrades'">2. Show you grades, if you are in our student database</a></li>???
     <li><a href="/3">3.</a></li>
 </ul>
-<!--<p &lt;!&ndash;<span th:text = "${}"/&ndash;&gt;></p>-->
 
+<p th:text="${session.values()}" th:unless="${session == null}">[...]</p>
+<p th:text="${user.login}" th:unless="${user == null}">[...]</p>
 </body>
 </html>

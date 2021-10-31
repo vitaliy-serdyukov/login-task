@@ -10,7 +10,7 @@ public class GameController {
 
   @GetMapping("/guessNumber")
   public String sendToGuessNumber(){
-    return "guessNumber";
+    return "game/guessNumber";
   }
 
 
@@ -20,8 +20,8 @@ public class GameController {
     gameService.chooseNumberComputer();
     model.addAttribute("gameService", gameService);
     if (gameService.getPcNumber() == humanNumber){
-      return "gameResultTrue";
+      return "game/gameResultTrue";
     }
-    return "gameResultFalse";
+    return "game/gameResultFalse";
   }
 }

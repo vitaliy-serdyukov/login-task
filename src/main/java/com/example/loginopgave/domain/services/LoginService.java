@@ -1,35 +1,43 @@
 package com.example.loginopgave.domain.services;
 
 /*import com.example.loginopgave.models.Student;*/
+import com.example.loginopgave.domain.LoginSampleException;
 import com.example.loginopgave.domain.models.User;
-import com.example.loginopgave.repositories.DBManager;
-import com.example.loginopgave.repositories.DataMapper;
+import com.example.loginopgave.repositories.UserRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class UserService {
+public class LoginService {
+
+  private UserRepository ur = null;
+
+  // Dependency injection
+  public LoginService(UserRepository userRepository) {
+    this.ur = userRepository;
+  }
 
 
+  public boolean checkIfUserExists(User userEntered) throws SQLException {
 
-
-
-  public boolean loginUser(DataMapper dataMapper, User userEntered) throws SQLException {
-    ResultSet rs = dataMapper.getAllUsersFromDB();
-    User temp;
+    ResultSet rs = ur.getAllUsersFromDB();
+    String userTempLogin;
     while (rs.next()) {
-      temp = new User(rs.getString(1), rs.getString(2));
-      if ((temp.getLogin()).equals(userEntered.getLogin()) &&
-          (temp.getPassword()).equals(userEntered.getPassword())) {
-
+      userTempLogin = rs.getString(1);
+      if ((userTempLogin).equals(userEntered.getLogin())) {
         return true;
       }
     }
     return false;
   }
+
+  public User createUser(String email, String password) throws LoginSampleException {
+    // By default, new users are customers
+    User user = new User(email, password);
+    return ur.saveUserToDB(user);
+  }
+
 
 
  /* public ResultSet getIfStudent(User userEntered) {
