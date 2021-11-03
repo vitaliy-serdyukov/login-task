@@ -8,7 +8,7 @@
 <body>
 <p><b>Please, choose username and password, then press on "Signup" to proceed</b></p>
 <div class="form-middle">
-    <form method = "POST" action = "/createUser">
+    <form method = "POST" action = "/register">
         <p style="text-align:center"><b>Please sign up here:</b></p>
         <b>Login :</b> <input style="margin-left: 29px" type = text name = login>
         <b>Password :</b> <input type = password name = password>
@@ -17,5 +17,8 @@
         </div>
     </form>
 </div>
+<p th:text="${session.values()}" th:unless="${session == null}">[...]</p>
+<p>Is session empty now?</p>
+<p th:text="${session.isEmpty()}" th:unless="${session == null}">[...]</p>
 </body>
 </html>

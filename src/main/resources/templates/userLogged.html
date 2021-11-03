@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/styling.css" type="text/css">
@@ -22,6 +22,7 @@
 </ul>
 
 <p th:text="${session.values()}" th:unless="${session == null}">[...]</p>
-<p th:text="${user.login}" th:unless="${user == null}">[...]</p>
+<p>Is session empty now?</p>
+<p th:text="${session.isEmpty()}" th:unless="${session == null}">[...]</p>
 </body>
 </html>

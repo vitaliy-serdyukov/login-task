@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h1> Wellcome to the Main page</h1>
+<h1> Welcome to the Main page</h1>
 
 
 <div class="form-middle">
@@ -21,10 +21,12 @@
     <button class="button1" type="submit">Login</button>
     </div>
     <div class="button-wrapper">
-            <button class="button1" onclick="location.href='users/registerUser'" type="button">Signup</button>
+            <button class="button1" onclick="location.href='/registerUser'" type="button">Signup</button>
     </div>
-</form>
+    </form>
 </div>
+<p>Is session empty now?</p>
+<p th:text="${session.isEmpty()}" th:unless="${session == null}">[...]</p>
 </body>
 </html>
 
