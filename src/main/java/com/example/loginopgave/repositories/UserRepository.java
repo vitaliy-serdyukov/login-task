@@ -37,4 +37,18 @@ public class UserRepository {
       ex.printStackTrace();
     }
   }
+
+  public void deleteUserFromDB(String login){
+    try {
+      Connection con = DBManager.getConnection();
+      /*String loginStr = user.getLogin();*/
+      String SQL = "DELETE FROM users WHERE (login='" + login + "')";
+      PreparedStatement ps = con.prepareStatement(SQL/*, Statement.RETURN_GENERATED_KEYS*/);
+     /* ps.setString(1, user.getLogin());
+      ps.setString(2, user.getPassword());*/
+      ps.executeUpdate();
+      } catch (SQLException ex) {
+      ex.printStackTrace();
+    }
+  }
 }
